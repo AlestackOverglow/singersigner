@@ -1,0 +1,81 @@
+﻿<Window x:Class="DriverSignTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DriverSignTool"
+        mc:Ignorable="d"
+        Title="Singer Signer" Height="500" Width="800"
+        Background="#FF1E1E1E">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF2D2D2D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF2D2D2D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="LinkStyle">
+            <Setter Property="Foreground" Value="#569CD6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Singer Signer" FontSize="24" FontWeight="Bold" Margin="5,0,5,10"/>
+            <TextBlock Text="Certificate Management" FontSize="18" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBox x:Name="CertificateNameTextBox" Width="200" ToolTip="Enter certificate name"/>
+                <Button x:Name="CreateCertificateButton" Content="Create Certificate" Click="CreateCertificateButton_Click"/>
+                <Button x:Name="RemoveCertificateButton" Content="Remove Certificate" Click="RemoveCertificateButton_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBox x:Name="DriverPathTextBox" Width="300" ToolTip="Enter path to driver file"/>
+                <Button x:Name="BrowseDriverButton" Content="Browse" Click="BrowseDriverButton_Click"/>
+                <Button x:Name="SignDriverButton" Content="Sign Driver" Click="SignDriverButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0,20,0,0">
+            <TextBlock Text="Windows Settings" FontSize="18" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <Button x:Name="TestModeButton" Content="Enable Test Mode" Click="TestModeButton_Click"/>
+                <Button x:Name="DriverSigningButton" Content="Disable Driver Signing" Click="DriverSigningButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBox Grid.Row="2" x:Name="LogTextBox" 
+                 IsReadOnly="True" 
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 Margin="0,20,0,0"/>
+
+        <StatusBar Grid.Row="3" Background="#FF2D2D2D">
+            <TextBlock x:Name="StatusTextBlock" Text="Ready"/>
+        </StatusBar>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,5,0" VerticalAlignment="Center">
+            <TextBlock Text="Created by " Foreground="#A0A0A0" VerticalAlignment="Center"/>
+            <TextBlock Text="AlestackOverglow" Style="{StaticResource LinkStyle}" MouseDown="AuthorLink_MouseDown" VerticalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window>

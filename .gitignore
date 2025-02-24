@@ -1,0 +1,31 @@
+# .NET build output
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.cache
+*.dll
+*.exe
+*.pdb
+*.log
+
+# IDE files
+.idea/
+*.sln.iml
+.vscode/
+
+# Windows specific
+[Tt]humbs.db
+*.DS_Store
+
+# Test certificates
+*.pfx
+*.cer
+*.pvk
+
+# Temporary files
+*.tmp
+*~ 
