@@ -1,6 +1,6 @@
 # Singer Signer
 
-A Windows application for managing test certificates and driver signing settings.
+A program for creating test certificates and signing drivers with them. So it contains everything you need to manage certificates, switch Windows to test mode, and so on.
 
 ## Features
 
@@ -19,6 +19,30 @@ A Windows application for managing test certificates and driver signing settings
 - .NET 8.0 Runtime
 - Windows SDK or WDK (for SignTool.exe)
 - Administrative privileges
+
+## Installation
+
+1. Install .NET 8.0 Runtime from https://dotnet.microsoft.com/download/dotnet/8.0
+2. Install Windows SDK from https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
+3. Download the latest release or build from source
+4. Run the application as administrator
+
+## Usage
+
+1. **Certificate Management**
+   - Enter a name for the certificate
+   - Click "Create Certificate" to create and install a new test certificate
+   - Use the certificate thumbprint to remove it from the system
+
+2. **Driver Signing**
+   - Create a test certificate first
+   - Click "Browse" to select a driver file
+   - Click "Sign Driver" to sign the selected driver with the current certificate
+
+3. **Windows Settings**
+   - Use "Enable/Disable Test Mode" to toggle Windows test mode
+   - Use "Enable/Disable Driver Signing" to toggle driver signature enforcement
+   - Restart your computer after changing these settings
 
 ## Building from Source
 
@@ -47,30 +71,7 @@ A Windows application for managing test certificates and driver signing settings
 2. Select build configuration (Debug/Release)
 3. Build Solution (F6) or Publish (Right click on project -> Publish)
 
-## Installation
-
-1. Install .NET 8.0 Runtime from https://dotnet.microsoft.com/download/dotnet/8.0
-2. Install Windows SDK from https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
-3. Download the latest release or build from source
-4. Run the application as administrator
-
-## Usage
-
-1. **Certificate Management**
-   - Enter a name for the certificate
-   - Click "Create Certificate" to create and install a new test certificate
-   - Use the certificate thumbprint to remove it from the system
-
-2. **Driver Signing**
-   - Create a test certificate first
-   - Click "Browse" to select a driver file
-   - Click "Sign Driver" to sign the selected driver with the current certificate
-
-3. **Windows Settings**
-   - Use "Enable/Disable Test Mode" to toggle Windows test mode
-   - Use "Enable/Disable Driver Signing" to toggle driver signature enforcement
-   - Restart your computer after changing these settings
-
+   
 ## Security Note
 
 This tool requires administrative privileges to function properly as it modifies system security settings. The test certificates created by this tool are for development and testing purposes only. For production drivers, use an official certificate from a trusted certificate authority.
