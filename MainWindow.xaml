@@ -47,6 +47,8 @@
                 <TextBox x:Name="CertificateNameTextBox" Width="200" ToolTip="Enter certificate name"/>
                 <Button x:Name="CreateCertificateButton" Content="Create Certificate" Click="CreateCertificateButton_Click"/>
                 <Button x:Name="RemoveCertificateButton" Content="Remove Certificate" Click="RemoveCertificateButton_Click"/>
+                <Button x:Name="ExportCertificateButton" Content="Export Certificate" Click="ExportCertificateButton_Click"/>
+                <Button x:Name="ImportCertificateButton" Content="Import Certificate" Click="ImportCertificateButton_Click"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,10">
                 <TextBox x:Name="DriverPathTextBox" Width="300" ToolTip="Enter path to driver file"/>

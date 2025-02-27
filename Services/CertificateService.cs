@@ -116,5 +116,63 @@ namespace DriverSignTool.Services
                 }
             }
         }
+
+        /// <summary>
+        /// Exports certificate from the store to a PFX file
+        /// </summary>
+        /// <param name="thumbprint">Certificate thumbprint</param>
+        /// <param name="exportPath">Path where to save the PFX file</param>
+        /// <returns>True if certificate was exported successfully, false if certificate was not found</returns>
+        public bool ExportCertificate(string thumbprint, string exportPath)
+        {
+            if (!ValidateCertificateName(thumbprint))
+            {
+                throw new ArgumentException("Invalid certificate thumbprint. Use only letters, numbers, spaces, and the following characters: -_.", nameof(thumbprint));
+            }
+
+            using (var store = new X509Store(CertificateStoreName, StoreLocation.LocalMachine))
+            {
+                store.Open(OpenFlags.ReadOnly);
+                var cert = store.Certificates.Find(X509FindType.FindByThumbprint, thumbprint, false);
+                if (cert.Count > 0)
+                {
+                    var password = Guid.NewGuid().ToString();
+                    var pfxData = cert[0].Export(X509ContentType.Pfx, password);
+                    File.WriteAllBytes(exportPath, pfxData);
+                    
+                    // Write password to a separate file
+                    var passwordFile = Path.ChangeExtension(exportPath, ".txt");
+                    File.WriteAllText(passwordFile, $"Certificate Password: {password}");
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Imports a certificate from a PFX file and installs it to both MY and ROOT stores
+        /// </summary>
+        /// <param name="pfxPath">Path to the PFX file</param>
+        /// <param name="password">Password for the PFX file</param>
+        public void ImportCertificate(string pfxPath, string password)
+        {
+            // load certificate from file
+            var certificate = new X509Certificate2(pfxPath, password, 
+                X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            // install in MY (Personal)
+            using (var store = new X509Store(StoreName.My, StoreLocation.LocalMachine))
+            {
+                store.Open(OpenFlags.ReadWrite);
+                store.Add(certificate);
+            }
+
+            // install in ROOT (Trusted Root Certification Authorities)
+            using (var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine))
+            {
+                store.Open(OpenFlags.ReadWrite);
+                store.Add(certificate);
+            }
+        }
     }
 } 
